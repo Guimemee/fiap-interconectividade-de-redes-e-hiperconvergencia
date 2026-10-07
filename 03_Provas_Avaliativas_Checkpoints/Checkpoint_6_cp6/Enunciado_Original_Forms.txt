@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Interconectividade de Redes e Hiperconvergência
+Turma 3ECR • Ano 2024
+Checkpoint 06: Redes Definidas por Software (SD-WAN) e Túneis VPN IPsec Seguros
+
+ENUNCIADO ORIGINAL:
+Projetar a interconexão segura entre os centros de pesquisa Sanofi e as embarcações autônomas utilizando SD-WAN inteligente com túneis VPN IPsec IKEv2 e criptografia AES-GCM.

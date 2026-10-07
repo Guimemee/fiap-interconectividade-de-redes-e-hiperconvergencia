@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Interconectividade de Redes e Hiperconvergência
+Turma 3ECR • Ano 2024
+Checkpoint 04: Análise Profunda de Tráfego e Resolução de Problemas com Wireshark
+
+ENUNCIADO ORIGINAL:
+Capturar e analisar arquivos .pcap de tráfego de rede para diagnosticar lentidão de banco de dados, retransmissões TCP (TCP Dup ACK) e ataques de esgotamento de portas SYN Flood.

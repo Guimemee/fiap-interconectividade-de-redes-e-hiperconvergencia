@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Interconectividade de Redes e Hiperconvergência
+Turma 3ECR • Ano 2024
+Checkpoint 02: Segmentação com VLANs, Enlaces Tronco 802.1Q e Roteamento Inter-VLAN
+
+ENUNCIADO ORIGINAL:
+Configurar switches gerenciáveis L2/L3 com VLANs isoladas, protocolo 802.1Q e roteamento Router-on-a-Stick com subinterfaces virtuais e Access Control Lists (ACLs).

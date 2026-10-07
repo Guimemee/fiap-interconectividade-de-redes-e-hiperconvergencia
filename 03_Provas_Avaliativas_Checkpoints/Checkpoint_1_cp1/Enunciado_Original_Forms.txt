@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Interconectividade de Redes e Hiperconvergência
+Turma 3ECR • Ano 2024
+Checkpoint 01: Endereçamento IPv4/IPv6, Sub-redes VLSM e Planejamento Topológico
+
+ENUNCIADO ORIGINAL:
+Dimensionar o esquema de endereçamento IPv4 com Máscara de Tamanho Variável (VLSM) para segmentar a rede corporativa e a rede de telemetria da Sanofi minimizando o desperdício de IPs.

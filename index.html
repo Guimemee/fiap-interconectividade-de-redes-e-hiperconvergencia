@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIAP • Interconectividade de Redes e Hiperconvergência | Turma 3ECR • 2024</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0a0817;
+      --bg-card: #14102c;
+      --bg-surface: #211a45;
+      --border: #352a6b;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --accent: #818cf8;
+      --radius: 12px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    [id] { scroll-margin-top: 95px; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 14, 23, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 10px 24px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-row-1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-row-1 .brand-fiap {
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .header-row-2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .turma-tag {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-repo-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-repo-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero-banner {
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .nav-tab {
+      padding: 10px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-tab:hover, .nav-tab.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .cp-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem-box, .plot-box {
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      background: var(--bg-surface);
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .box-content {
+      padding: 16px;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .formula-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), rgba(129, 140, 248, 0.05));
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .formula-latex {
+      font-size: 1.25rem;
+      color: #ffffff;
+      overflow-x: auto;
+      padding: 6px 0;
+    }
+
+    .symbolab-container {
+      margin-bottom: 24px;
+    }
+
+    .symbolab-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .step-header {
+      margin-bottom: 8px;
+    }
+
+    .step-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .step-content {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    .plot-img-container {
+      padding: 16px;
+      background: var(--bg-dark);
+      text-align: center;
+    }
+
+    .plot-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="header-row-1">
+        <span class="brand-fiap">FIAP</span>
+        <span class="brand-sep">•</span>
+        <span>Engenharia da Computação</span>
+      </div>
+      <div class="header-row-2">
+        <span class="turma-tag">TURMA 3ECR • 2024</span>
+        <a href="https://github.com/Guimemee/fiap-interconectividade-de-redes-e-hiperconvergencia" class="btn-repo-top" target="_blank" rel="noopener">Ver Repositório ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <img src="card_technologies.svg" alt="FIAP Interconectividade de Redes e Hiperconvergência Banner" />
+    </div>
+
+    <div class="metrics-grid">
+      
+        <div class="metric-card">
+          <div class="metric-label">ROTEAMENTO OSPF</div>
+          <div class="metric-val">ÁREA 0 BACKBONE</div>
+          <div class="metric-sub">Algoritmo Dijkstra de Estado de Enlace</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">VLANs 802.1Q</div>
+          <div class="metric-val">SEGMENTAÇÃO L2/L3</div>
+          <div class="metric-sub">Isolamento de Tráfego de Telemetria</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">HIPERCONVERGÊNCIA</div>
+          <div class="metric-val">HCI CLUSTER</div>
+          <div class="metric-sub">Armazenamento e Computação Nutanix/vSAN</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">ANÁLISE DE REDE</div>
+          <div class="metric-val">WIRESHARK PCAP</div>
+          <div class="metric-sub">Troubleshooting e Análise de Latência</div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs">
+      <a href="#cp1" class="nav-tab active">CP 1: Endereçamento IPv4/IPv6, ...</a>
+      <a href="#cp2" class="nav-tab">CP 2: Segmentação com VLANs, En...</a>
+      <a href="#cp3" class="nav-tab">CP 3: Protocolo de Roteamento D...</a>
+      <a href="#cp4" class="nav-tab">CP 4: Análise Profunda de Tráfe...</a>
+      <a href="#cp5" class="nav-tab">CP 5: Infraestrutura Hiperconve...</a>
+      <a href="#cp6" class="nav-tab">CP 6: Redes Definidas por Softw...</a>
+    </nav>
+
+    
+      <section id="cp1" class="cp-section">
+        <div class="section-badge">CHECKPOINT 01 • 3ECR 2024</div>
+        <h2 class="section-title">Endereçamento IPv4/IPv6, Sub-redes VLSM e Planejamento Topológico</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp1')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp1" class="box-content">
+            <p>Dimensionar o esquema de endereçamento IPv4 com Máscara de Tamanho Variável (VLSM) para segmentar a rede corporativa e a rede de telemetria da Sanofi minimizando o desperdício de IPs.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Hosts Necessários} \le 2^{32 - \text{prefixo}} - 2, \quad \text{Ex: } /27 \implies 2^5 - 2 = 30 \text{ hosts}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Inventário de Requisitos por Segmento</span>
+              </div>
+              <div class="step-content">
+                <p>Setor Farmacêutico: 120 hosts (/25); Sensores IoT: 60 hosts (/26); Servidores: 28 hosts (/27); Enlaces ponto-a-ponto: 2 hosts (/30).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Alocação Hierárquica a partir do Bloco 10.20.0.0/22</span>
+              </div>
+              <div class="step-content">
+                <p>Ordenação decrescente por quantidade de hosts requeridos.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Cálculo de Máscaras e Broadcast</span>
+              </div>
+              <div class="step-content">
+                <p>Sub-rede 1 (Produção): 10.20.0.0/25 (Faixa: 10.20.0.1 a 10.20.0.126; Broadcast: 10.20.0.127).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Planejamento Duplo com IPv6 Global Unicast (/64)</span>
+              </div>
+              <div class="step-content">
+                <p>Atribuição de prefixos /64 com autoconfiguração SLAAC.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Eficiência</span>
+              </div>
+              <div class="step-content">
+                <p>Aproveitamento de 92% do espaço de endereçamento com espaço garantido para expansão futura.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_1_cp1/grafico_resolucao.png" alt="Gráfico Endereçamento IPv4/IPv6, Sub-redes VLSM e Planejamento Topológico" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp2" class="cp-section">
+        <div class="section-badge">CHECKPOINT 02 • 3ECR 2024</div>
+        <h2 class="section-title">Segmentação com VLANs, Enlaces Tronco 802.1Q e Roteamento Inter-VLAN</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp2')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp2" class="box-content">
+            <p>Configurar switches gerenciáveis L2/L3 com VLANs isoladas, protocolo 802.1Q e roteamento Router-on-a-Stick com subinterfaces virtuais e Access Control Lists (ACLs).</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Header 802.1Q}: \text{TPID (16 bits: 0x8100)} + \text{TCI (Priority: 3 bits, CFI: 1 bit, VID: 12 bits)}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Criação das VLANs no Switch Core</span>
+              </div>
+              <div class="step-content">
+                <p>VLAN 10 (Gestao), VLAN 20 (Sensores), VLAN 30 (DMZ), VLAN 99 (Nativa).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Configuração dos Enlaces Trunk 802.1Q</span>
+              </div>
+              <div class="step-content">
+                <p>switchport mode trunk; switchport trunk allowed vlan 10,20,30,99.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Subinterfaces de Roteamento no Roteador</span>
+              </div>
+              <div class="step-content">
+                <p>interface GigabitEthernet0/0/0.10; encapsulation dot1Q 10; ip address 10.20.0.1 255.255.255.128.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Regras de Segurança com ACL Estendida</span>
+              </div>
+              <div class="step-content">
+                <p>Bloqueio de acesso da VLAN de Sensores aos servidores da VLAN de Gestão via porta 80/443.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Isolamento</span>
+              </div>
+              <div class="step-content">
+                <p>Domínio de broadcast reduzido em 75% e contenção total de tempestades de broadcast.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_2_cp2/grafico_resolucao.png" alt="Gráfico Segmentação com VLANs, Enlaces Tronco 802.1Q e Roteamento Inter-VLAN" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp3" class="cp-section">
+        <div class="section-badge">CHECKPOINT 03 • 3ECR 2024</div>
+        <h2 class="section-title">Protocolo de Roteamento Dinâmico de Estado de Enlace: OSPFv2</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp3')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp3" class="box-content">
+            <p>Implementar e sintonizar o protocolo OSPF multi-área (Área 0 Backbone e Área 1 Fabril) com métricas baseadas em largura de banda e autenticação criptográfica MD5.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Custo OSPF} = \frac{\text{Auto-Cost Reference Bandwidth}}{\text{Interface Bandwidth}} = \frac{100.000.000 \text{ bps}}{\text{Bandwidth}}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Estabelecimento de Adjacências de Vizinhos</span>
+              </div>
+              <div class="step-content">
+                <p>Troca de pacotes Hello a cada 10 segundos para eleição de DR (Designated Router) e BDR.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Inundação de LSAs (Link-State Advertisements)</span>
+              </div>
+              <div class="step-content">
+                <p>Propagação de LSA Tipo 1 (Router) e Tipo 2 (Network) na base LSDB.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Execução do Algoritmo SPF (Shortest Path First)</span>
+              </div>
+              <div class="step-content">
+                <p>Dijkstra calculando a árvore de menor custo para cada destino na tabela de roteamento.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Sintonização da Largura de Banda de Referência</span>
+              </div>
+              <div class="step-content">
+                <p>auto-cost reference-bandwidth 10000 para diferenciar corretamente enlaces Gigabit e 10-Gigabit.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Convergência</span>
+              </div>
+              <div class="step-content">
+                <p>Tempo de convergência da malha inferior a 2,3 segundos em caso de falha de fibra óptica.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_3_cp3/grafico_resolucao.png" alt="Gráfico Protocolo de Roteamento Dinâmico de Estado de Enlace: OSPFv2" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp4" class="cp-section">
+        <div class="section-badge">CHECKPOINT 04 • 3ECR 2024</div>
+        <h2 class="section-title">Análise Profunda de Tráfego e Resolução de Problemas com Wireshark</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp4')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp4" class="box-content">
+            <p>Capturar e analisar arquivos .pcap de tráfego de rede para diagnosticar lentidão de banco de dados, retransmissões TCP (TCP Dup ACK) e ataques de esgotamento de portas SYN Flood.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{RTT} = t_{\text{ACK}} - t_{\text{SYN}}, \quad \text{Taxa de Retransmissão} = \frac{N_{\text{Retrans}}}{N_{\text{Total}}} \times 100\%$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Aplicação de Filtros de Captura e Exibição</span>
+              </div>
+              <div class="step-content">
+                <p>Filtro: tcp.analysis.retransmission || tcp.analysis.duplicate_ack para isolamento de problemas.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Análise do Three-Way Handshake TCP</span>
+              </div>
+              <div class="step-content">
+                <p>Medição do RTT inicial (SYN -> SYN/ACK -> ACK) de 14 ms.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Detecção de Gargalo de Janela TCP (Zero Window)</span>
+              </div>
+              <div class="step-content">
+                <p>Identificação de receptores com buffer esgotado anunciando Window Size = 0.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Análise Estatística de Conversações e Gráficos IO</span>
+              </div>
+              <div class="step-content">
+                <p>Gráfico de Throughput revelando perda de pacotes exatamente nos picos de backup noturno.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão Diagnóstica</span>
+              </div>
+              <div class="step-content">
+                <p>Resolução do MTU mismatch de 1500 para 1492 eliminando fragmentação excessiva de pacotes.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_4_cp4/grafico_resolucao.png" alt="Gráfico Análise Profunda de Tráfego e Resolução de Problemas com Wireshark" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp5" class="cp-section">
+        <div class="section-badge">CHECKPOINT 05 • 3ECR 2024</div>
+        <h2 class="section-title">Infraestrutura Hiperconvergente (HCI) e Armazenamento Distribuído vSAN</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp5')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp5" class="box-content">
+            <p>Dimensionar um cluster HCI de 4 nós com armazenamento definido por software (SDS), calculando a capacidade útil sob políticas RAID-1 (Espelhamento) e RAID-5 (Codificação de Apagamento).</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Capacidade Útil (RAID-1)} = \frac{\text{Bruto}}{2}, \quad \text{Capacidade Útil (RAID-5)} = \text{Bruto} \times \left(\frac{N - 1}{N}\right) = \text{Bruto} \times 0,75$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Agregação de Recursos de Computação e Armazenamento</span>
+              </div>
+              <div class="step-content">
+                <p>Cada nó provê 64 vCPUs, 256 GB RAM e 8 TB de armazenamento NVMe flash.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Definição do Fator de Falhas Toleradas (FTT)</span>
+              </div>
+              <div class="step-content">
+                <p>Política FTT=1 permite a perda catastrófica de 1 nó ou disco inteiro sem indisponibilidade.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Comparativo de Políticas de Armazenamento</span>
+              </div>
+              <div class="step-content">
+                <p>Para 32 TB brutos: RAID-1 provê 16 TB úteis; RAID-5 erasure coding provê 24 TB úteis.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Configuração de Rede Dedicada de Armazenamento</span>
+              </div>
+              <div class="step-content">
+                <p>Dois enlaces 25 GbE redundantes com suporte a Jumbo Frames (MTU 9000).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Alta Disponibilidade</span>
+              </div>
+              <div class="step-content">
+                <p>Cluster com failover automático vSphere HA com tempo de recuperação de VMs inferior a 20 segundos.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_5_cp5/grafico_resolucao.png" alt="Gráfico Infraestrutura Hiperconvergente (HCI) e Armazenamento Distribuído vSAN" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp6" class="cp-section">
+        <div class="section-badge">CHECKPOINT 06 • 3ECR 2024</div>
+        <h2 class="section-title">Redes Definidas por Software (SD-WAN) e Túneis VPN IPsec Seguros</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp6')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp6" class="box-content">
+            <p>Projetar a interconexão segura entre os centros de pesquisa Sanofi e as embarcações autônomas utilizando SD-WAN inteligente com túneis VPN IPsec IKEv2 e criptografia AES-GCM.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Throughput IPsec} = \frac{\text{Payload MTU} - \text{ESP Headers}}{\text{Payload MTU}} \times \text{Bandwidth}, \quad \text{AES-256-GCM}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Negociação IKEv2 Fase 1</span>
+              </div>
+              <div class="step-content">
+                <p>Autenticação mútua via certificados digitais X.509 e troca Diffie-Hellman Grupo 19 (Curva Elíptica).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Negociação IKEv2 Fase 2 (IPsec SA)</span>
+              </div>
+              <div class="step-content">
+                <p>Estabelecimento do encapsulamento ESP com cifras AES-256-GCM para criptografia e integridade simultâneas.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Política de Roteamento Baseada em Aplicação (SD-WAN)</span>
+              </div>
+              <div class="step-content">
+                <p>Tráfego crítico de telemetria direcionado via link satelital de baixa latência; backups via link móvel 5G.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Monitoramento Contínuo de SLA de Enlaces</span>
+              </div>
+              <div class="step-content">
+                <p>Sondas BFD medindo jitter, perda de pacotes e latência em tempo real a cada 500 ms.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Segurança e Desafio Sanofi</span>
+              </div>
+              <div class="step-content">
+                <p>Comunicação de dados marítimos impenetrável com comutação transparente entre operadoras sem queda de sessão.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_6_cp6/grafico_resolucao.png" alt="Gráfico Redes Definidas por Software (SD-WAN) e Túneis VPN IPsec Seguros" loading="lazy" />
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Bacharelado em Engenharia da Computação • <strong>FIAP</strong></p>
+    <p>Autor: Guilherme Macário (<a href="https://github.com/Guimemee" target="_blank">@Guimemee</a>) • Turma 3ECR • Ano 2024</p>
+    <p>Repositório Oficial: <a href="https://github.com/Guimemee/fiap-interconectividade-de-redes-e-hiperconvergencia" target="_blank">github.com/Guimemee/fiap-interconectividade-de-redes-e-hiperconvergencia</a></p>
+  </footer>
+
+  <script>
+    function copyText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert('Enunciado copiado para a área de transferência!'));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Enunciado copiado!');
+      }
+    }
+  </script>
+</body>
+</html>
